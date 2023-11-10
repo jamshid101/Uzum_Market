@@ -1,7 +1,7 @@
 package com.example.uzum_market.dto;
 
+import com.example.uzum_market.enums.FilterOperatorEnum;
 import lombok.Data;
-import uz.pdp.appbackend.enums.FilterOperatorEnum;
 
 import java.util.List;
 
@@ -15,20 +15,6 @@ public class FilterDTO {
     private FilterOperatorEnum filterOperator; //OR
 
     private List<FilterField> filterFields;//
-    // [{column: 'price',
-    // columnType: 'MONEY',
-    // comparatorType: 'RA',
-    // value: {
-    //      minValue: 10,
-    //      maxValue: 20}
-    // },
-    // {column: 'pageCount',
-    //    // columnType: 'NUMBER',
-    //    // comparatorType: 'GTE',
-    //    // value: {
-    //    //      minValue: 500
-    //    }
-    //    // }]
 
 
 }
