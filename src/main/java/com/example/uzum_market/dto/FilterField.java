@@ -1,7 +1,8 @@
 package com.example.uzum_market.dto;
 
+import com.example.uzum_market.enums.ColumnTypeEnum;
+import com.example.uzum_market.enums.ComparatorTypeEnum;
 import lombok.Data;
-import uz.pdp.appbackend.enums.ColumnTypeEnum;
 
 @Data
 public class FilterField {
@@ -14,12 +15,5 @@ public class FilterField {
 
     private FilterFieldValue value;
 
-    /*
-value
-:
-{searchingValue: "bah"}
-searchingValue
-:
-"bah"
-     */
+
 }
