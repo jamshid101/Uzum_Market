@@ -14,6 +14,7 @@ public interface AuthController {
     String CONFIRM_FOR_SELLER_PATH = "/confirm-for-admin";
     String REGISTER_PATH = "/register";
     String FORGOT_PATH = "/forgot-password";
+    String SEND_EMAIL = "/email";
 
     @PostMapping(LOGIN_PATH)
     HttpEntity<ApiResult<TokenDTO>> login(@Valid @RequestBody LoginDTO loginDTO);
@@ -26,10 +27,12 @@ public interface AuthController {
 
     @PostMapping(CONFIRM_FOR_SELLER_PATH)
     HttpEntity<ApiResult<TokenDTO>> confirmForAdmin(@Valid @RequestBody ConfirmAdminDTO confirmAdminDTO);
+
     @PostMapping(REGISTER_PATH)
     HttpEntity<ApiResult<TokenDTO>> register(@Valid @RequestBody RegisterDTO registerDTO);
-    @PostMapping(FORGOT_PATH)
-    HttpEntity<ApiResult<Boolean>> forgotPassword(@RequestParam String email);
+
+    @PostMapping(SEND_EMAIL)
+    HttpEntity<ApiResult<Boolean>> sendEmail(@RequestParam String email);
 
     @PostMapping(FORGOT_PATH)
     HttpEntity<ApiResult<Boolean>> reset(@RequestParam String email);

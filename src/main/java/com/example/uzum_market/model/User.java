@@ -10,8 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+
 
 @Entity
 @Getter
@@ -26,8 +25,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "email", nullable = false,unique = true)
-    private String username;
+    @Column( nullable = false,unique = true)
+    private String email;
 
     private String name;
     @Column(nullable = false)
@@ -50,18 +49,17 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Roles roles;
 
-    @Column()
-    @Builder.Default
-    private Integer code = new Random().nextInt(10000,19999);
-
-
-
-
+    private String code;
 
 
     @Override
+    public String getUsername() {
+        return getEmail();
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ADMIN"));
+        return Collections.singleton(new SimpleGrantedAuthority(getRoles().name()));
     }
 
     @Override
@@ -77,6 +75,10 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean allOk() {
+        return isAccountNonExpired() && isAccountNonLocked() && isCredentialsNonExpired() && isEnabled();
     }
 
 }
