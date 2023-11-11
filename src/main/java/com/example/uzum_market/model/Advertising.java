@@ -18,8 +18,8 @@ public class Advertising {
     @OneToOne
     private Attachment attachment;
 
-    @ManyToOne(optional = false)
-    private Category category;
+//    @ManyToOne(optional = false)
+//    private Category category;
 
 
 

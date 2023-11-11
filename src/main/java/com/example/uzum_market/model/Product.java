@@ -36,7 +36,7 @@ public class Product {
     @Column(nullable = false)
     private Boolean isActive;
 
-
-
+    @Column(nullable = false)
+    private Boolean isStock;
 
 }

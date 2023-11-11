@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController(CategoryController.BASE_PATH)
 public interface CategoryController {
-    String ALL_CATEGORY = "/api/all-category";
+    String ALL_CATEGORY = "/all-category";
     String BASE_PATH = "/api";
     String REFRESH_TOKEN_PATH = "/child-category/{categoryId}";
 

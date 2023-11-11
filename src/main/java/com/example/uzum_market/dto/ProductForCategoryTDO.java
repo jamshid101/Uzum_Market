@@ -1,6 +1,5 @@
 package com.example.uzum_market.dto;
 
-import com.example.uzum_market.model.Product;
 import lombok.Data;
 
 import java.util.List;

@@ -21,7 +21,7 @@ public interface AttachmentController {
 
 
     @GetMapping("{id}")
-    ResponseEntity<?> downloadFile(@PathVariable UUID id,
+    ResponseEntity<?> downloadFile(@PathVariable Integer id,
                                    @RequestParam(defaultValue = "inline") String view,
                                    HttpServletResponse response);
 }

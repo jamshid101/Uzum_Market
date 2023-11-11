@@ -19,11 +19,17 @@ public class Price {
     private Specification specification;
 
     @OneToOne
+    private Color color;
+
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Product product;
 
     @Column(nullable = false)
     private Double price;
+
+    @Column(nullable = false)
+    private Integer count;
 
 
 
