@@ -1,6 +1,8 @@
 package com.example.uzum_market.config.jwtFilter;
 
+import com.example.uzum_market.model.User;
 import com.example.uzum_market.service.AuthServiceImpl;
+import com.example.uzum_market.utils.AppConstants;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,12 +13,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import uz.pdp.appbackend.entity.User;
-import uz.pdp.appbackend.service.AuthServiceImpl;
-import uz.pdp.appbackend.utils.AppConstants;
+
 
 import java.io.IOException;
-import java.util.Base64;
 import java.util.Optional;
 
 @Component
@@ -32,37 +31,26 @@ public class JWTFilter extends OncePerRequestFilter {
         if (authorization != null) {
             if (authorization.startsWith(AppConstants.BEARER_TYPE))
                 setAuthenticationBearer(request, authorization);
-            else if (authorization.startsWith(AppConstants.BASIC_TYPE))
-                setAuthenticationBasic(request, authorization);
-
         }
         filterChain.doFilter(request, response);
-    }
-
-    private void setAuthenticationBasic(HttpServletRequest request, String authorization) {
-        authorization = authorization.substring(AppConstants.BASIC_TYPE.length()).trim();
-        String[] split = new String(Base64.getDecoder().decode(authorization)).split(":", 2);
-        UserPrincipal principal = authServiceImpl.checkCredential(split[0], split[1]);
-        setAuthentication(request, principal);
     }
 
     private void setAuthenticationBearer(HttpServletRequest request, String authorization) {
         String userId = jwtProvider.extractUserId(authorization.substring(AppConstants.BEARER_TYPE.length()).trim());
 
-        Optional<User> optionalUser = authServiceImpl.findUserById(userId);
+        Optional<User> optionalUser = authServiceImpl.findUserById(Integer.valueOf(userId));
         optionalUser.ifPresent(user -> {
-            UserPrincipal principal = new UserPrincipal(user);
-            if (principal.allOk())
-                setAuthentication(request, principal);
+            if (user.allOk())
+                setAuthentication(request, user);
         });
     }
 
-    private void setAuthentication(HttpServletRequest request, UserPrincipal principal) {
+    private void setAuthentication(HttpServletRequest request, User user) {
         UsernamePasswordAuthenticationToken authentication =
                 new UsernamePasswordAuthenticationToken(
-                        principal,
+                        user,
                         null,
-                        principal.getAuthorities()
+                        user.getAuthorities()
                 );
 
         //TODO sesion based + token based auth qilsak kerak bo'ladi

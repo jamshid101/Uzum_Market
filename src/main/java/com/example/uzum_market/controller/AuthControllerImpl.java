@@ -1,9 +1,18 @@
 package com.example.uzum_market.controller;
 
 import com.example.uzum_market.dto.*;
+import com.example.uzum_market.repository.UserRepository;
+import com.example.uzum_market.service.AuthService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequiredArgsConstructor
 public class AuthControllerImpl implements AuthController {
+
+    private final AuthService authService;
+
     @Override
     public HttpEntity<ApiResult<TokenDTO>> login(LoginDTO loginDTO) {
         return null;
@@ -20,7 +29,7 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
-    public HttpEntity<ApiResult<TokenDTO>> register(RegisterDTO registerDTO) {
+    public HttpEntity<ApiResult<?>> register(RegisterDTO registerDTO) {
         return null;
     }
 

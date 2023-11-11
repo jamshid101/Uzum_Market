@@ -6,7 +6,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController(AuthController.BASE_PATH)
+@RequestMapping(AuthController.BASE_PATH)
 public interface AuthController {
     String BASE_PATH = "/api/auth";
     String LOGIN_PATH = "/login";
@@ -29,7 +29,7 @@ public interface AuthController {
     HttpEntity<ApiResult<TokenDTO>> confirmForAdmin(@Valid @RequestBody ConfirmAdminDTO confirmAdminDTO);
 
     @PostMapping(REGISTER_PATH)
-    HttpEntity<ApiResult<TokenDTO>> register(@Valid @RequestBody RegisterDTO registerDTO);
+    HttpEntity<ApiResult<?>> register(@Valid @RequestBody RegisterDTO registerDTO);
 
     @PostMapping(SEND_EMAIL)
     HttpEntity<ApiResult<Boolean>> sendEmail(@RequestParam String email);
