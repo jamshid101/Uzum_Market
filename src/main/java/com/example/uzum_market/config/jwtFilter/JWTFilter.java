@@ -14,7 +14,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
 import java.io.IOException;
 import java.util.Optional;
 
@@ -37,12 +36,14 @@ public class JWTFilter extends OncePerRequestFilter {
 
     private void setAuthenticationBearer(HttpServletRequest request, String authorization) {
         String userId = jwtProvider.extractUserId(authorization.substring(AppConstants.BEARER_TYPE.length()).trim());
+        if (userId != null) {
 
-        Optional<User> optionalUser = authServiceImpl.findUserById(Integer.valueOf(userId));
-        optionalUser.ifPresent(user -> {
-            if (user.allOk())
-                setAuthentication(request, user);
-        });
+            Optional<User> optionalUser = authServiceImpl.findUserById(Integer.valueOf(userId));
+            optionalUser.ifPresent(user -> {
+                if (user.allOk())
+                    setAuthentication(request, user);
+            });
+        }
     }
 
     private void setAuthentication(HttpServletRequest request, User user) {

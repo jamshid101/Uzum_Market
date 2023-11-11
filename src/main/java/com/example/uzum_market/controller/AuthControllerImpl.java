@@ -35,7 +35,7 @@ public class AuthControllerImpl implements AuthController {
 
     @Override
     public HttpEntity<ApiResult<?>> register(RegisterDTO registerDTO) {
-        return null;
+        return ResponseEntity.ok(authService.register(registerDTO));
     }
 
     @Override
