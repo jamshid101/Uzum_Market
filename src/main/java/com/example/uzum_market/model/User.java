@@ -50,15 +50,6 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Roles roles;
 
-    @Column()
-    @Builder.Default
-    private Integer code = new Random().nextInt(10000,19999);
-
-
-
-
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority("ADMIN"));

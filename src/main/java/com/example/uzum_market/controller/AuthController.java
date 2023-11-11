@@ -3,6 +3,7 @@ package com.example.uzum_market.controller;
 import com.example.uzum_market.dto.*;
 import com.example.uzum_market.utils.AppConstants;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,8 @@ public interface AuthController {
     String CONFIRM_FOR_SELLER_PATH = "/confirm-for-admin";
     String REGISTER_PATH = "/register";
     String FORGOT_PATH = "/forgot-password";
+    String CONFIRM_EMAIL_PATH = "email";
+    String CONFIRM_CODE_PATH = "email-code";
 
     @PostMapping(LOGIN_PATH)
     HttpEntity<ApiResult<TokenDTO>> login(@Valid @RequestBody LoginDTO loginDTO);
@@ -26,8 +29,13 @@ public interface AuthController {
 
     @PostMapping(CONFIRM_FOR_SELLER_PATH)
     HttpEntity<ApiResult<TokenDTO>> confirmForAdmin(@Valid @RequestBody ConfirmAdminDTO confirmAdminDTO);
+
+    @PostMapping(CONFIRM_EMAIL_PATH)
+    HttpEntity<ApiResult<?>> verificationEmail(@Email String email);
+    @PostMapping(CONFIRM_CODE_PATH)
+    HttpEntity<ApiResult<?>> verificationCode(@Email String code);
     @PostMapping(REGISTER_PATH)
-    HttpEntity<ApiResult<TokenDTO>> register(@Valid @RequestBody RegisterDTO registerDTO);
+    HttpEntity<ApiResult<?>> register(@Valid @RequestBody RegisterDTO registerDTO);
     @PostMapping(FORGOT_PATH)
     HttpEntity<ApiResult<Boolean>> forgotPassword(@RequestParam String email);
 

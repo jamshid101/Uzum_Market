@@ -14,16 +14,23 @@ public interface ProductController {
     String BASE_PATH = "/api/product";
     String ALL_CATE_PRODUCT_PATH = "/category-products/{categoryId}";
     String PRODUCT_PATH = "";
+    String PRICE_PATH = "";
+    String SLIDE_PATH = "slide";
     String CHANGE_STATUS_PATH = "/change-status/{id}";
     String LIST_FOR_SELLER_PATH = "/for-seller";
 
 
-
     @GetMapping(ALL_CATE_PRODUCT_PATH)
-    HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsList(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId );
+    HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsList(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId);
 
     @GetMapping("/{productId}")
     HttpEntity<ApiResult<List<ProductOneDTO>>> product(@PathVariable Integer productId);
+
+    @GetMapping(PRODUCT_PATH)
+    HttpEntity<ApiResult<List<GetPriceDTO>>> getPrice(@PathVariable Integer colorId,@PathVariable Integer specId);
+
+    @GetMapping(SLIDE_PATH)
+    HttpEntity<ApiResult<List<SlideDTO>>> getSlide(@PathVariable Integer colorId,@PathVariable Integer specId);
 
 
     @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
@@ -48,5 +55,5 @@ public interface ProductController {
 
 
 
-   
+
 }
