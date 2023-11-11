@@ -8,6 +8,7 @@ import com.example.uzum_market.dto.TokenDTO;
 import com.example.uzum_market.exceptions.RestException;
 import com.example.uzum_market.model.User;
 import com.example.uzum_market.repository.UserRepository;
+import com.example.uzum_market.utils.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -63,7 +64,16 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ApiResult<Boolean> sendEmail(String email) {
-        return null;
+        String generationCode = EmailService.getGenerationCode();
+        boolean res = EmailService.sendMessageToEmail(email, generationCode);
+        if (!res){
+            throw RestException.restThrow("iltimos birozdan sung qayta urunib kuring",HttpStatus.BAD_REQUEST);
+        }
+        
+        User user = User.builder().email(email).code(generationCode).build();
+
+        userRepository.save(user);
+        return ApiResult.successResponse(true);
     }
 
     @Override
