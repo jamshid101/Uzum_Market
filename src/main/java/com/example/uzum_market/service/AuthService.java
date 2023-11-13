@@ -1,9 +1,6 @@
 package com.example.uzum_market.service;
 
-import com.example.uzum_market.dto.ApiResult;
-import com.example.uzum_market.dto.LoginDTO;
-import com.example.uzum_market.dto.RegisterDTO;
-import com.example.uzum_market.dto.TokenDTO;
+import com.example.uzum_market.dto.*;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 public interface AuthService extends UserDetailsService {
@@ -15,5 +12,7 @@ public interface AuthService extends UserDetailsService {
     ApiResult<?> register(RegisterDTO registerDTO);
 
     ApiResult<Boolean> sendEmail(String email);
+
+    ApiResult<Boolean> forgotPassword(ResetDTO resetDTO);
 
 }

@@ -35,6 +35,6 @@ public interface AuthController {
     HttpEntity<ApiResult<Boolean>> sendEmail(@RequestParam String email);
 
     @PostMapping(FORGOT_PATH)
-    HttpEntity<ApiResult<Boolean>> reset(@RequestParam String email);
+    HttpEntity<ApiResult<Boolean>> reset(@RequestBody ResetDTO resetDTO);
     //todo reset password
 }

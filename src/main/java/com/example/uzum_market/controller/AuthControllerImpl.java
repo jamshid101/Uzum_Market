@@ -44,7 +44,7 @@ public class AuthControllerImpl implements AuthController {
     }
 
     @Override
-    public HttpEntity<ApiResult<Boolean>> reset(String email) {
-        return null;
+    public HttpEntity<ApiResult<Boolean>> reset(ResetDTO resetDTO) {
+        return ResponseEntity.ok(authService.forgotPassword(resetDTO));
     }
 }

@@ -1,10 +1,7 @@
 package com.example.uzum_market.service;
 
 import com.example.uzum_market.config.jwtFilter.JWTProvider;
-import com.example.uzum_market.dto.ApiResult;
-import com.example.uzum_market.dto.LoginDTO;
-import com.example.uzum_market.dto.RegisterDTO;
-import com.example.uzum_market.dto.TokenDTO;
+import com.example.uzum_market.dto.*;
 import com.example.uzum_market.exceptions.RestException;
 import com.example.uzum_market.model.Balance;
 import com.example.uzum_market.model.User;
@@ -44,7 +41,9 @@ public class AuthServiceImpl implements AuthService {
     public ApiResult<TokenDTO> login(LoginDTO loginDTO) {
         User user = userRepository.findByEmail(loginDTO.username())
                 .orElseThrow(() -> RestException.restThrow("User not found", HttpStatus.BAD_REQUEST));
-        return ApiResult.successResponse(generateTokenDTO(user));
+        
+        User user1 = checkCredential(user.getEmail(), user.getPassword());
+        return ApiResult.successResponse(generateTokenDTO(user1));
     }
 
     @Override
@@ -116,6 +115,30 @@ public class AuthServiceImpl implements AuthService {
                 .build();
 
         userRepository.save(user);
+        return ApiResult.successResponse(true);
+    }
+
+    @Override
+    public ApiResult<Boolean> forgotPassword(ResetDTO resetDTO) {
+        Optional<User> user = userRepository.findByEmail(resetDTO.getEmail());
+
+        if (user.isEmpty()) {
+            throw RestException.restThrow("bunday user mavjud emas",HttpStatus.BAD_REQUEST);
+        }
+
+        User user1 = user.get();
+
+        if (!user1.getCode().equals(resetDTO.getCode())) {
+            throw RestException.restThrow("kiritilgan code xato",HttpStatus.BAD_REQUEST);
+        }
+
+        if (!user1.getPassword().equals(resetDTO.getPrePassword())){
+            throw RestException.restThrow("kiritilgan password mos emas xato",HttpStatus.BAD_REQUEST);
+        }
+
+        user1.setPassword(resetDTO.getPassword());
+        userRepository.save(user1);
+
         return ApiResult.successResponse(true);
     }
 
