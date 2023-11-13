@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 
-
+@Entity
 @Getter
 @Setter
 @ToString
@@ -14,9 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Basket {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private List<User> user;
+    @OneToOne
+    private User user;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
 

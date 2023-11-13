@@ -15,7 +15,7 @@ public class Advertising {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Attachment attachment;
 
 //    @ManyToOne(optional = false)

@@ -69,7 +69,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ApiResult<?> register(RegisterDTO registerDTO) {
-        User user = userRepository.findByEmail(registerDTO.email()).orElseThrow(() -> RestException.restThrow("Iltimos qaytadan urinib kuring", HttpStatus.BAD_REQUEST));
+        User user = userRepository.findByEmail(registerDTO.email()).orElseThrow(() -> RestException.restThrow("Iltimos email tasdiqlaganingizga ishonch hosil qiling", HttpStatus.BAD_REQUEST));
+
         if (!user.getCode().equals(registerDTO.code()))
             throw RestException.restThrow("activation kod xato ", HttpStatus.BAD_REQUEST);
 

@@ -24,7 +24,7 @@ public interface ProductController {
     HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsList(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId);
 
     @GetMapping("/{productId}")
-    HttpEntity<ApiResult<List<ProductOneDTO>>> product(@PathVariable Integer productId);
+    HttpEntity<ApiResult<ProductOneDTO>> product(@PathVariable Integer productId);
 
     @GetMapping(PRODUCT_PATH)
     HttpEntity<ApiResult<List<GetPriceDTO>>> getPrice(@PathVariable Integer colorId,@PathVariable Integer specId);
