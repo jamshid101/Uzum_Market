@@ -24,18 +24,6 @@ public class BasketServiceImpl implements BasketService {
 
     @Override
     public ApiResult<?> saveBasket(AddBasketDTO addBasketDTO) {
-
-        Product product = productRepository.findById(addBasketDTO.getProductId())
-                .orElseThrow(() -> RestException.restThrow("Iltimos To'g'ri ma'lumot kiritilganiga etibor bering", HttpStatus.BAD_REQUEST));
-        Price price = priceRepository.findById(addBasketDTO.getPriceId())
-                .orElseThrow(() -> RestException.restThrow("Iltimos To'g'ri ma'lumot kiritilganiga etibor bering", HttpStatus.BAD_REQUEST));
-
-        User user = CommanUtils.getCurrentUserFromContext();
-        Optional<Basket> basketUser = basketRepository.findById(user.getId());
-        if (basketUser.isPresent()) {
-
-        }
-
         return null;
     }
 }
