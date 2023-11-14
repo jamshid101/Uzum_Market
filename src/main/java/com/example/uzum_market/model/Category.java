@@ -26,9 +26,6 @@ public class Category {
     @ManyToOne
     private Category parentCategory;
 
-    @OneToMany(mappedBy = "parentCategory")
-    private List<Category> category;
-
     @OneToOne
     private Attachment attachment;
 
