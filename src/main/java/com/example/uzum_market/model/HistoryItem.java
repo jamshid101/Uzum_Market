@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
-import java.util.List;
 
 @Entity
 @Getter
@@ -25,7 +24,6 @@ public class HistoryItem {
     @NotNull
     private Double price;
 
-    @NotBlank
     private String colorName;
 
     @NotBlank
@@ -34,14 +32,13 @@ public class HistoryItem {
     @ManyToOne(optional = false)
     private Orders order;
 
-    @NotBlank
     private String SpecificationsType;
 
-    @NotBlank
     private String SpecificationsName;
 
+    private Integer attachmentId;
     @NotNull
-    private Long cretedAt;
+    private Long createdAt;
 
     @ManyToOne(optional = false)
     private History history;

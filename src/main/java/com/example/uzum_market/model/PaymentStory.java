@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.parameters.P;
 
 import java.time.LocalDateTime;
 
@@ -20,15 +21,20 @@ public class PaymentStory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User sender;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User receiver;
 
     @Column
     @Positive
     private double amount;
+
+    private String cardNumber;
+
+    @ManyToOne
+    private Payment payment;
 
     @Column(nullable = false)
     private LocalDateTime localDateTime;
@@ -36,10 +42,6 @@ public class PaymentStory {
 
     @Enumerated(EnumType.STRING)
     private TransferStatus status;
-
-
-
-
 
 
 }

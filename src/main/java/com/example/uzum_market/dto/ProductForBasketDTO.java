@@ -1,20 +1,15 @@
 package com.example.uzum_market.dto;
 
 import com.example.uzum_market.model.Attachment;
+import com.example.uzum_market.model.Price;
 import lombok.Data;
 
 import java.util.List;
 @Data
-
-public class ProductDTO {
+public class ProductForBasketDTO {
     private Integer productId;
-    private Double rating;
-    private Integer ratingCount;
-    private Double price;
-    private Double curPrice;
-
+    private Integer count;
+    private Price price;
     private String  name;
     private List<Attachment> attachments;
-
-
 }

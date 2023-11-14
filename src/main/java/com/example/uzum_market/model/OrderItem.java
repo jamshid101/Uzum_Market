@@ -32,5 +32,8 @@ public class OrderItem {
     @ManyToOne
     private Orders order;
 
+    @ManyToOne
+    private Basket basket;
+
 
 }

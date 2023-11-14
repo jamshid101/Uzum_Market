@@ -37,7 +37,7 @@ public interface AuthController {
     @PostMapping(REGISTER_PATH)
     HttpEntity<ApiResult<?>> register(@Valid @RequestBody RegisterDTO registerDTO);
     @PostMapping(FORGOT_PATH)
-    HttpEntity<ApiResult<Boolean>> forgotPassword(@RequestParam String email);
+    HttpEntity<ApiResult<?>> forgotPassword(@RequestParam String email);
 
     @PostMapping(FORGOT_PATH)
     HttpEntity<ApiResult<Boolean>> reset(@RequestParam String email);

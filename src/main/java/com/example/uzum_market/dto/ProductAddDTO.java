@@ -9,7 +9,9 @@ public record ProductAddDTO(
         @NotBlank String name,
         @NotBlank String description,
         @NotBlank String specificationType,
-        @NotEmpty List<PriceAddDTO> priceAddDTOS
+        @NotEmpty List<PriceAddDTO> priceAddDTOS,
+        List<MultipartHttpServletRequest> photoList
+
 
 ) {
 }
