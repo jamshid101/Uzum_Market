@@ -30,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
 
     public AuthServiceImpl(UserRepository userRepository,
                            @Lazy AuthenticationManager authenticationManager,
-                           PasswordEncoder passwordEncoder, JWTProvider jwtProvider, PasswordEncoder encoder) {
+                           PasswordEncoder passwordEncoder, JWTProvider jwtProvider) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
@@ -39,10 +39,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ApiResult<TokenDTO> login(LoginDTO loginDTO) {
-        User user = userRepository.findByEmail(loginDTO.username())
-                .orElseThrow(() -> RestException.restThrow("User not found", HttpStatus.BAD_REQUEST));
-        
-        User user1 = checkCredential(user.getEmail(), user.getPassword());
+        User user1 = checkCredential(loginDTO.username(), loginDTO.password());
         return ApiResult.successResponse(generateTokenDTO(user1));
     }
 
@@ -52,6 +49,7 @@ public class AuthServiceImpl implements AuthService {
             throw RestException.restThrow("Bearer emas");
 
         accessToken = accessToken.substring(AppConstants.BEARER_TYPE.length()).trim();
+        refreshToken = refreshToken.substring(AppConstants.BEARER_TYPE.length()).trim();
         if (!jwtProvider.isExpired(accessToken))
             throw RestException.restThrow("Token muddati tugamagan");
 
