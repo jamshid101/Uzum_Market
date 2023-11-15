@@ -3,6 +3,7 @@ package com.example.uzum_market.controller;
 import com.example.uzum_market.dto.*;
 import com.example.uzum_market.utils.AppConstants;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 

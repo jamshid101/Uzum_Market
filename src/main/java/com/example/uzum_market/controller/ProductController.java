@@ -7,7 +7,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController(ProductController.BASE_PATH)
 public interface ProductController {
@@ -15,13 +14,18 @@ public interface ProductController {
     String ALL_CATE_PRODUCT_PATH = "/category-products/{categoryId}";
     String PRODUCT_PATH = "";
     String PRICE_PATH = "";
-    String SLIDE_PATH = "slide";
+    String SLIDE_PATH = "slide/{productId}";
     String CHANGE_STATUS_PATH = "/change-status/{id}";
     String LIST_FOR_SELLER_PATH = "/for-seller";
+    String ALL_SELLER_PRODUCT_PATH = "/seller-products/{sellerId}";
+
 
 
     @GetMapping(ALL_CATE_PRODUCT_PATH)
     HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsList(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId);
+
+    @GetMapping(ALL_SELLER_PRODUCT_PATH)
+    HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsOfSeller(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable String sellerId);
 
     @GetMapping("/{productId}")
     HttpEntity<ApiResult<ProductOneDTO>> product(@PathVariable Integer productId);
@@ -30,7 +34,7 @@ public interface ProductController {
     HttpEntity<ApiResult<List<GetPriceDTO>>> getPrice(@PathVariable Integer colorId,@PathVariable Integer specId);
 
     @GetMapping(SLIDE_PATH)
-    HttpEntity<ApiResult<List<SlideDTO>>> getSlide(@PathVariable Integer colorId,@PathVariable Integer specId);
+    HttpEntity<ApiResult<List<SlideDTO>>> getSlide(@PathVariable String productId);
 
 
     @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")

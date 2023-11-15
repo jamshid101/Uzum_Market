@@ -1,5 +1,6 @@
 package com.example.uzum_market.model;
 
+import com.example.uzum_market.enums.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -19,7 +20,8 @@ public class History {
     private Integer id;
 
     @NotBlank
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @ManyToOne(optional = false)
     private Seller seller;
@@ -28,6 +30,9 @@ public class History {
     private User user;
 
     private Long complateAt;
+
+    @Column(nullable = false)
+    private String address;
 
     @OneToMany(mappedBy = "history")
     private List<HistoryItem> storyItems;

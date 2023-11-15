@@ -12,11 +12,13 @@ import java.util.List;
 public interface CategoryController {
     String ALL_CATEGORY = "/all-category";
     String BASE_PATH = "/api";
-    String REFRESH_TOKEN_PATH = "/child-category/{categoryId}";
+    String CHILD_CATEGORY_PATH = "/child-category/{categoryId}";
 
 
-    @PostMapping(ALL_CATEGORY)
+    @GetMapping(ALL_CATEGORY)
     HttpEntity<ApiResult<List<CategoryDTO>>> categoryList();
+    @GetMapping(CHILD_CATEGORY_PATH)
+    HttpEntity<ApiResult<List<CategoryDTO>>> childCategoryList(@PathVariable Integer categoryId);
 
 
 }
