@@ -5,6 +5,7 @@ import com.example.uzum_market.dto.*;
 import com.example.uzum_market.exceptions.RestException;
 import com.example.uzum_market.model.Balance;
 import com.example.uzum_market.model.User;
+import com.example.uzum_market.repository.AttachmentRepository;
 import com.example.uzum_market.repository.UserRepository;
 import com.example.uzum_market.utils.EmailService;
 import org.springframework.context.annotation.Lazy;
@@ -27,14 +28,17 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
+    private final AttachmentRepository attachmentRepository;
 
     public AuthServiceImpl(UserRepository userRepository,
                            @Lazy AuthenticationManager authenticationManager,
-                           PasswordEncoder passwordEncoder, JWTProvider jwtProvider) {
+                           PasswordEncoder passwordEncoder, JWTProvider jwtProvider,
+                           AttachmentRepository attachmentRepository) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
+        this.attachmentRepository = attachmentRepository;
     }
 
     @Override
@@ -77,6 +81,7 @@ public class AuthServiceImpl implements AuthService {
 
         user.setName(registerDTO.name());
         user.setAccountNonLocked(true);
+        user.setAttachment(attachmentRepository.findById(registerDTO.photo_id()).orElse(null));
         user.setPassword(passwordEncoder.encode(registerDTO.password()));
 
         userRepository.save(user);

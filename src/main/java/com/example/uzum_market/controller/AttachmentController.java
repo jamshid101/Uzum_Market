@@ -1,5 +1,6 @@
 package com.example.uzum_market.controller;
 
+import com.example.uzum_market.dto.ApiResult;
 import com.example.uzum_market.dto.AttachmentDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
