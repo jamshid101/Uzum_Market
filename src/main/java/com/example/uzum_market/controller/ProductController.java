@@ -22,7 +22,7 @@ public interface ProductController {
 
 
     @GetMapping(ALL_CATE_PRODUCT_PATH)
-    HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsList(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId);
+    HttpEntity<ApiResult<PaginationDTO<ProductForCategoryTDO>>> productsList(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId);
 
     @GetMapping(ALL_SELLER_PRODUCT_PATH)
     HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsOfSeller(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable String sellerId);

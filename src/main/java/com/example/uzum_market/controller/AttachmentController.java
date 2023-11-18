@@ -7,9 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-
-import java.util.UUID;
-
 @RequestMapping(value = AttachmentController.BASE_PATH)
 public interface AttachmentController {
 
