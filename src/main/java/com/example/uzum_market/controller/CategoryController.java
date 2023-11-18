@@ -17,6 +17,7 @@ public interface CategoryController {
 
     @GetMapping(ALL_CATEGORY)
     HttpEntity<ApiResult<List<CategoryDTO>>> categoryList();
+
     @GetMapping(CHILD_CATEGORY_PATH)
     HttpEntity<ApiResult<List<CategoryDTO>>> childCategoryList(@PathVariable Integer categoryId);
 

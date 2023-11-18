@@ -1,5 +1,6 @@
 package com.example.uzum_market.exceptions;
 
+import com.example.uzum_market.dto.ApiResult;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
