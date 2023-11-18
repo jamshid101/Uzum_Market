@@ -40,10 +40,10 @@ public class User implements UserDetails {
     private Long birthday;
 
     private Long createDate;
-    @OneToOne
-    private Attachment attachmen;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Attachment attachment;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false,cascade = CascadeType.ALL)
     private Balance balance;
 
     @Enumerated(EnumType.STRING)
@@ -59,7 +59,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ADMIN"));
+        return Collections.singleton(new SimpleGrantedAuthority(roles.name()));
     }
 
     @Override

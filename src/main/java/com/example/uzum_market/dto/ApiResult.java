@@ -1,5 +1,6 @@
 package com.example.uzum_market.dto;
 
+import com.example.uzum_market.exceptions.ErrorData;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -15,7 +16,7 @@ public class ApiResult<T> {
 
     private T data;
 
-    private List<ErrorData> errors;
+    private List<com.example.uzum_market.exceptions.ErrorData> errors;
 
     private ApiResult(T data) {
         this.success = true;
@@ -27,7 +28,7 @@ public class ApiResult<T> {
         this.message = message;
     }
 
-    private ApiResult(List<ErrorData> errors) {
+    private ApiResult(List<com.example.uzum_market.exceptions.ErrorData> errors) {
         this.errors = errors;
     }
 
@@ -40,11 +41,11 @@ public class ApiResult<T> {
         return new ApiResult<>(e);
     }
 
-    public static ApiResult<ErrorData> errorResponse(List<ErrorData> errors) {
+    public static ApiResult<com.example.uzum_market.exceptions.ErrorData> errorResponse(List<com.example.uzum_market.exceptions.ErrorData> errors) {
         return new ApiResult<>(errors);
     }
 
-    public static ApiResult<ErrorData> errorResponse(int status, String msg) {
+    public static ApiResult<com.example.uzum_market.exceptions.ErrorData> errorResponse(int status, String msg) {
         return new ApiResult<>(List.of(new ErrorData(status, msg)));
     }
 }

@@ -14,13 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Basket {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @OneToOne
     private User user;
-    @OneToMany(mappedBy = "basket")
+    @OneToMany(cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
 

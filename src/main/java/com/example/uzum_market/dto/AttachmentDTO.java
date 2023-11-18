@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class AttachmentDTO {
 
-    private UUID id;
+    private Integer id;
 
     private String originalName;
 

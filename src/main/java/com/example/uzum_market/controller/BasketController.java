@@ -1,9 +1,7 @@
 package com.example.uzum_market.controller;
 
 import com.example.uzum_market.dto.AddBasketDTO;
-import com.example.uzum_market.dto.ApiResult;
 import com.example.uzum_market.dto.BasketDTO;
-import com.example.uzum_market.dto.ProductDTO;
 import org.springframework.http.HttpEntity;
 import org.springframework.web.bind.annotation.*;
 

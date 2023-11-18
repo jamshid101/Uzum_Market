@@ -5,6 +5,7 @@ import com.example.uzum_market.dto.*;
 import com.example.uzum_market.exceptions.RestException;
 import com.example.uzum_market.model.Balance;
 import com.example.uzum_market.model.User;
+import com.example.uzum_market.repository.AttachmentRepository;
 import com.example.uzum_market.repository.UserRepository;
 import com.example.uzum_market.utils.EmailService;
 import org.springframework.context.annotation.Lazy;
@@ -27,22 +28,22 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final JWTProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
+    private final AttachmentRepository attachmentRepository;
 
     public AuthServiceImpl(UserRepository userRepository,
                            @Lazy AuthenticationManager authenticationManager,
-                           PasswordEncoder passwordEncoder, JWTProvider jwtProvider, PasswordEncoder encoder) {
+                           PasswordEncoder passwordEncoder, JWTProvider jwtProvider,
+                           AttachmentRepository attachmentRepository) {
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
+        this.attachmentRepository = attachmentRepository;
     }
 
     @Override
     public ApiResult<TokenDTO> login(LoginDTO loginDTO) {
-        User user = userRepository.findByEmail(loginDTO.username())
-                .orElseThrow(() -> RestException.restThrow("User not found", HttpStatus.BAD_REQUEST));
-        
-        User user1 = checkCredential(user.getEmail(), user.getPassword());
+        User user1 = checkCredential(loginDTO.username(), loginDTO.password());
         return ApiResult.successResponse(generateTokenDTO(user1));
     }
 
@@ -52,6 +53,7 @@ public class AuthServiceImpl implements AuthService {
             throw RestException.restThrow("Bearer emas");
 
         accessToken = accessToken.substring(AppConstants.BEARER_TYPE.length()).trim();
+        refreshToken = refreshToken.substring(AppConstants.BEARER_TYPE.length()).trim();
         if (!jwtProvider.isExpired(accessToken))
             throw RestException.restThrow("Token muddati tugamagan");
 
@@ -69,7 +71,8 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public ApiResult<?> register(RegisterDTO registerDTO) {
-        User user = userRepository.findByEmail(registerDTO.email()).orElseThrow(() -> RestException.restThrow("Iltimos qaytadan urinib kuring", HttpStatus.BAD_REQUEST));
+        User user = userRepository.findByEmail(registerDTO.email()).orElseThrow(() -> RestException.restThrow("Iltimos email tasdiqlaganingizga ishonch hosil qiling", HttpStatus.BAD_REQUEST));
+
         if (!user.getCode().equals(registerDTO.code()))
             throw RestException.restThrow("activation kod xato ", HttpStatus.BAD_REQUEST);
 
@@ -78,6 +81,7 @@ public class AuthServiceImpl implements AuthService {
 
         user.setName(registerDTO.name());
         user.setAccountNonLocked(true);
+        user.setAttachment(attachmentRepository.findById(registerDTO.photo_id()).orElse(null));
         user.setPassword(passwordEncoder.encode(registerDTO.password()));
 
         userRepository.save(user);

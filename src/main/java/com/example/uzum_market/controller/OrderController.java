@@ -1,12 +1,10 @@
 package com.example.uzum_market.controller;
 
-import com.example.uzum_market.dto.ApiResult;
-import com.example.uzum_market.dto.AttachmentDTO;
 import com.example.uzum_market.dto.OrderDTO;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
