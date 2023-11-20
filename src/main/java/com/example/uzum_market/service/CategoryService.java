@@ -2,16 +2,13 @@ package com.example.uzum_market.service;
 
 import com.example.uzum_market.dto.ApiResult;
 import com.example.uzum_market.dto.CategoryDTO;
-import com.example.uzum_market.exceptions.RestException;
 import com.example.uzum_market.mapper.CategoryMapper;
 import com.example.uzum_market.model.Category;
 import com.example.uzum_market.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -25,7 +22,7 @@ public class CategoryService {
     public ApiResult<List<CategoryDTO>> all() {
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
 
-        for (Category category : categoryRepository.findAll()) {
+        for (Category category : categoryRepository.findEntitiesWithNullParentCategoryIds()) {
             CategoryDTO categoryDTO = CategoryDTO.builder()
                     .id(category.getId())
                     .nameUz(category.getNameUz())
@@ -44,8 +41,20 @@ public class CategoryService {
         List<CategoryDTO> categoryDTOS = new ArrayList<>();
 
         for (Category category : allById) {
-            categoryDTOS.add(categoryMapper.mapToCategoryDTO(category));
+
+            List<CategoryDTO> categoryDTOList = null;
+
+            if (category.getParentCategory().getId() != null)
+                categoryDTOList = childByCategoryId(category.getId()).getData();
+
+            CategoryDTO dto = categoryMapper.mapToCategoryDTO(category);
+
+            if (category.getParentCategory().getId() != null)
+                dto.setCategoryList(categoryDTOList);
+
+            categoryDTOS.add(dto);
         }
+
         System.out.println(categoryDTOS);
         return ApiResult.successResponse(categoryDTOS);
     }

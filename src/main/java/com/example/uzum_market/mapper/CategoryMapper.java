@@ -8,6 +8,6 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
 
-    @Mapping(target ="categoryList", expression = "java(null)")
+//    @Mapping(target ="categoryList", expression = "java(null)")
     CategoryDTO mapToCategoryDTO(Category category);
 }
