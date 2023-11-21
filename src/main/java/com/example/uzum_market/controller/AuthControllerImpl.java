@@ -1,11 +1,7 @@
 package com.example.uzum_market.controller;
 
 import com.example.uzum_market.dto.*;
-import com.example.uzum_market.exceptions.RestException;
-import com.example.uzum_market.model.User;
-import com.example.uzum_market.repository.UserRepository;
 import com.example.uzum_market.service.AuthService;
-import com.example.uzum_market.utils.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
