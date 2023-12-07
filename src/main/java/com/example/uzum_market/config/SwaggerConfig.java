@@ -16,38 +16,28 @@ import org.springframework.stereotype.Component;
 @SecuritySchemes(value = {
         @SecurityScheme(
                 name = "bearerAuth",
-                description = "Tokenjon",
+                description = "Bearer Tokkenni kiriting",
                 type = SecuritySchemeType.HTTP,
                 bearerFormat = "JWT",
                 scheme = "bearer",
                 in = SecuritySchemeIn.HEADER
-        ),
-        @SecurityScheme(
-                name = "basicAuth",
-                description = "sadsa",
-                type = SecuritySchemeType.HTTP,
-                scheme = "basic",
-                in = SecuritySchemeIn.HEADER
         )
 })
 @OpenAPIDefinition(
-        info = @Info(title = "Test swagger",
-                description = "B29 bilan",
+        info = @Info(title = "Uzum market clone Application",
+                description = "BY B29 Team ✔️",
                 contact = @Contact(
-                        url = "https://ketmon.uz",
-                        email = "ketmon@ketmon.uz",
-                        extensions = {@Extension(name = "extension test",
+                        url = "https://uzum.uz",
+                        email = "no0404ir@gmail.com",
+                        extensions = {@Extension(name = "uzum market clone",
                                 properties = {@ExtensionProperty(name = "FirstExtension",
                                         value = "Value extension")})}
                 )),
         servers = {
                 @Server(url = "http://localhost:8080", description = "Localhost"),
-                @Server(url = "ketmon.uz", description = "Bla"),
-                @Server(url = "bolta.uz", description = "Battar"),
         },
         security = {
                 @SecurityRequirement(name = "bearerAuth"),
-                @SecurityRequirement(name = "basicAuth"),
         }
 )
 @Component

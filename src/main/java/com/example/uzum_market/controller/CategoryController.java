@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController(CategoryController.BASE_PATH)
+@RequestMapping(CategoryController.BASE_PATH)
 public interface CategoryController {
     String ALL_CATEGORY = "/all-category";
     String BASE_PATH = "/api";

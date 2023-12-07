@@ -4,7 +4,8 @@ import com.example.uzum_market.dto.ApiResult;
 import com.example.uzum_market.dto.OrderHistoryDTO;
 import com.example.uzum_market.dto.PaymentHistoryDTO;
 import com.example.uzum_market.enums.OrderStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +19,12 @@ public interface HistoryController {
     String ORDER_PATH = "/order";
     String PAYMENT_PATH = "/payment";
 
-
+    @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
     @GetMapping(ORDER_PATH)
-    ResponseEntity<ApiResult<List<OrderHistoryDTO>>> showOrderHistory(@RequestBody OrderStatus orderStatus);
+    HttpEntity<ApiResult<List<OrderHistoryDTO>>> showOrderHistory(@RequestBody OrderStatus orderStatus);
 
+    @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
     @GetMapping(PAYMENT_PATH)
-    ResponseEntity<ApiResult<List<PaymentHistoryDTO>>> showPaymentHistory();
+    HttpEntity<ApiResult<List<PaymentHistoryDTO>>> showPaymentHistory();
 
 }
