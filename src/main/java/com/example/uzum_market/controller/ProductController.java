@@ -12,33 +12,34 @@ import java.util.List;
 public interface ProductController {
     String BASE_PATH = "/api/product";
     String ALL_CATE_PRODUCT_PATH = "/category-products/{categoryId}";
+    String PRICE_PATH = "price/";
     String PRODUCT_PATH = "";
-    String PRICE_PATH = "";
-    String SLIDE_PATH = "slide/{productId}";
+    String SLIDE_PATH = "/slide";
+    String ADD_PRODUCT_PATH = "/add-product";
     String CHANGE_STATUS_PATH = "/change-status/{id}";
     String LIST_FOR_SELLER_PATH = "/for-seller";
-    String ALL_SELLER_PRODUCT_PATH = "/seller-products/{sellerId}";
+    String ALL_SELLER_PRODUCT_PATH = "/seller-products";
 
 
 
-    @GetMapping(ALL_CATE_PRODUCT_PATH)
-    HttpEntity<ApiResult<PaginationDTO<ProductForCategoryTDO>>> productsList(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId);
+    @PostMapping(ALL_CATE_PRODUCT_PATH)
+    HttpEntity<ApiResult<PaginationDTO<ProductForCategoryDTO>>> productsList(@RequestBody(required = false) MainCriteriaDTO mainCriteriaDTO, @PathVariable Integer categoryId);
 
-    @GetMapping(ALL_SELLER_PRODUCT_PATH)
-    HttpEntity<ApiResult<List<ProductForCategoryTDO>>> productsOfSeller(@RequestBody MainCriteriaDTO mainCriteriaDTO, @PathVariable String sellerId);
+    @PostMapping(ALL_SELLER_PRODUCT_PATH)
+    HttpEntity<ApiResult<PaginationDTO<ProductDTO>>> productsOfSeller(@RequestBody MainCriteriaDTO mainCriteriaDTO);
 
     @GetMapping("/{productId}")
     HttpEntity<ApiResult<ProductOneDTO>> product(@PathVariable Integer productId);
 
-    @GetMapping(PRODUCT_PATH)
-    HttpEntity<ApiResult<List<GetPriceDTO>>> getPrice(@PathVariable Integer colorId,@PathVariable Integer specId);
+    @GetMapping(PRICE_PATH)
+    HttpEntity<ApiResult<PriceDTO>> getPrice(@RequestParam Integer colorId, @RequestParam Integer specId);
 
     @GetMapping(SLIDE_PATH)
-    HttpEntity<ApiResult<List<SlideDTO>>> getSlide(@PathVariable String productId);
+    HttpEntity<ApiResult<List<SlideDTO>>> getSlide();
 
 
-    @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
-    @PostMapping()
+//    @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
+    @PostMapping(ADD_PRODUCT_PATH)
     HttpEntity<ApiResult<ProductOneDTO>> add(@Valid @RequestBody ProductAddDTO productAddDTO);
 
     @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
@@ -51,7 +52,7 @@ public interface ProductController {
 
     @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
-    HttpEntity<ApiResult<String>> remove(@PathVariable Integer id);
+    HttpEntity<ApiResult<Integer>> remove(@PathVariable Integer id);
 
     @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
     @PostMapping(LIST_FOR_SELLER_PATH)

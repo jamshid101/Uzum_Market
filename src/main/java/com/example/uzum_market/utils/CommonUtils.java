@@ -9,10 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.UUID;
-
 @UtilityClass
-public class CommanUtils {
+public class CommonUtils {
 
     public static User getCurrentUserFromContext() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

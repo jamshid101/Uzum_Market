@@ -42,4 +42,7 @@ public class HistoryItem {
 
     @ManyToOne(optional = false)
     private History history;
+
+    @ManyToOne(optional = false)
+    private Product product;
 }

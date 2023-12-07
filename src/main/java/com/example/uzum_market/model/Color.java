@@ -20,8 +20,6 @@ public class Color {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany
-    private List<Attachment> attachment;
 
 
 

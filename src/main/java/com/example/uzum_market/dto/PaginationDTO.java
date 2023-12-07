@@ -1,12 +1,14 @@
 package com.example.uzum_market.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class PaginationDTO<T> {
@@ -23,14 +25,14 @@ public class PaginationDTO<T> {
 
     private int numberOfElements;
 
-    private PaginationDTO(List<T> content, int number, int size) {
+    private PaginationDTO(List<T> content, int totalPages, int totalElements) {
         this.content = content;
-        this.number = number;
-        this.size = size;
+        this.totalElements = totalElements;
+        this.totalPages = totalPages;
     }
 
-    public static <E> PaginationDTO<E> makePagination(List<E> content, int number, int size) {
-        return new PaginationDTO<>(content, number, size);
+    public static <E> PaginationDTO<E> makePagination(List<E> content, int totalPages, int totalElements) {
+        return new PaginationDTO<>(content, totalPages, totalElements);
     }
 
 

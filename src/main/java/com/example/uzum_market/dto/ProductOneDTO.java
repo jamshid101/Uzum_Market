@@ -1,21 +1,27 @@
 package com.example.uzum_market.dto;
 
 import com.example.uzum_market.model.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductOneDTO {
     private Integer id;
 
-    private Double rating;
+    private RatingDTO ratingDTO;
 
-    private Integer ratingCount;
+    private PriceDTO price;
 
-    private Price price;
+    private SellerDTO sellerDTO;
 
-    private Double curPrice;
+    private Integer sellCount;
 
     private String description;
 
