@@ -4,14 +4,27 @@ import lombok.Data;
 
 import java.util.List;
 
+
 @Data
 public class MainCriteriaDTO {
 
     private int page = 0;
 
-    private int size = 10;
+    private int size = 20;
 
-    private List<SortDTO> sorts;//[] null
+    private String color;
 
-    private FilterDTO filter;
+    private String specification;
+
+    private String brand;
+
+    private String search;
+
+    private SortDTO sortColumn;
+
+    private Double minPrice;
+
+    private Double maxPrice;
+
+    private DateDTO dateDTO;
 }

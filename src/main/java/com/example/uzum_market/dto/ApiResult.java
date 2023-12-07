@@ -16,7 +16,7 @@ public class ApiResult<T> {
 
     private T data;
 
-    private List<com.example.uzum_market.exceptions.ErrorData> errors;
+    private List<ErrorData> errors;
 
     private ApiResult(T data) {
         this.success = true;
@@ -45,7 +45,7 @@ public class ApiResult<T> {
         return new ApiResult<>(errors);
     }
 
-    public static ApiResult<com.example.uzum_market.exceptions.ErrorData> errorResponse(int status, String msg) {
+    public static ApiResult<ErrorData> errorResponse(int status, String msg) {
         return new ApiResult<>(List.of(new ErrorData(status, msg)));
     }
 }

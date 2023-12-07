@@ -9,7 +9,7 @@ import com.example.uzum_market.repository.BasketRepository;
 import com.example.uzum_market.repository.OrderItemRepository;
 import com.example.uzum_market.repository.PriceRepository;
 import com.example.uzum_market.repository.ProductRepository;
-import com.example.uzum_market.utils.CommanUtils;
+import com.example.uzum_market.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class BasketServiceImpl implements BasketService {
         Price price = priceRepository.findById(addBasketDTO.getPriceId())
                 .orElseThrow(() -> RestException.restThrow("Iltimos To'g'ri ma'lumot kiritilganiga etibor bering", HttpStatus.BAD_REQUEST));
 
-        User user = CommanUtils.getCurrentUserFromContext();
+        User user = CommonUtils.getCurrentUserFromContext();
         Optional<Basket> basketUser = basketRepository.findByUserId(user.getId());
         if (basketUser.isPresent()) {
             Basket basket = basketUser.get();

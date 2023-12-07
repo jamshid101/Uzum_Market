@@ -1,5 +1,7 @@
 package com.example.uzum_market.dto;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
 
 public class HistoryDTO {
     @NotNull

@@ -21,9 +21,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.UUID;
 
-import static com.example.uzum_market.utils.CommanUtils.makeFileUrl;
+import static com.example.uzum_market.utils.CommonUtils.makeFileUrl;
 
 
 @Service
@@ -32,7 +34,25 @@ public record AttachmentServiceImpl(AttachmentRepository attachmentRepository,
 
     @Override
     public ApiResult<AttachmentDTO> uploadFile(MultipartHttpServletRequest request) {
-        MultipartFile file = getMultipartFileFromRequest(request);
+        Attachment attachment = getAttachment(request);
+
+        attachmentRepository.save(attachment);
+        return ApiResult.successResponse(mapAttachmentDTO(attachment));
+    }
+
+    @Override
+    public List<Attachment> uploadFiles(List<MultipartHttpServletRequest> photos) {
+        List<Attachment> attachments = new LinkedList<>();
+        for (MultipartHttpServletRequest photo : photos) {
+            Attachment attachment = getAttachment(photo);
+            Attachment attachment1 = attachmentRepository.save(attachment);
+            attachments.add(attachment1);
+        }
+        return attachments;
+    }
+
+    private Attachment getAttachment(MultipartHttpServletRequest photo) {
+        MultipartFile file = getMultipartFileFromRequest(photo);
 
         Attachment attachment = mapAttachment(file);
 
@@ -43,9 +63,7 @@ public record AttachmentServiceImpl(AttachmentRepository attachmentRepository,
         } catch (IOException e) {
             throw RestException.restThrow(e.getMessage());
         }
-
-        attachmentRepository.save(attachment);
-        return ApiResult.successResponse(mapAttachmentDTO(attachment));
+        return attachment;
     }
 
     @Override

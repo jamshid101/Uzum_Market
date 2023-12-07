@@ -7,6 +7,7 @@ import com.example.uzum_market.model.Balance;
 import com.example.uzum_market.model.User;
 import com.example.uzum_market.repository.AttachmentRepository;
 import com.example.uzum_market.repository.UserRepository;
+import com.example.uzum_market.utils.AppConstants;
 import com.example.uzum_market.utils.EmailService;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;

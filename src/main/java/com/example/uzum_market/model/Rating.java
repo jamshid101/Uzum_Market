@@ -22,7 +22,7 @@ public class Rating {
     private Product product;
 
     @Column(nullable = false)
-    private String rating;
+    private Integer rating;
 
 
 

@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-import java.util.UUID;
+import java.util.*;
 
 public record ConfirmAdminDTO(@NotNull UUID id,
                               @NotBlank @Pattern(regexp = AppConstants.PASSWORD_REGEXP) String password,
                               @NotBlank @Pattern(regexp = AppConstants.PASSWORD_REGEXP) String prePassword,
                               @NotBlank String name) {
+
 }

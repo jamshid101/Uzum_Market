@@ -15,13 +15,12 @@ public class Advertising {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @OneToOne(optional = false)
+    private Product product;
+
     @OneToOne(cascade = CascadeType.ALL)
     private Attachment attachment;
 
-//    @ManyToOne(optional = false)
-//    private Category category;
-
-
-
+    private Boolean isActive;
 
 }

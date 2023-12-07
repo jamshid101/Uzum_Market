@@ -3,6 +3,8 @@ package com.example.uzum_market.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -30,6 +32,9 @@ public class Price {
 
     @Column(nullable = false)
     private Integer count;
+
+    @OneToMany
+    List<Attachment> attachments;
 
 
 
