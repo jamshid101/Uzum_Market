@@ -19,20 +19,24 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotBlank
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
-
-    @ManyToOne(optional = false)
-    private Seller seller;
 
     @ManyToOne(optional = false)
     private User user;
 
     private Long complateAt;
 
-    @Column(nullable = false)
-    private String address;
+    private Long createAt;
+
+    @ManyToOne(optional = false)
+    private Address address;
+
+    @ManyToOne(optional = false)
+    private Payment payment;
+
+    @ManyToOne
+    private Promocode promocode;
 
     @OneToMany(mappedBy = "history")
     private List<HistoryItem> storyItems;

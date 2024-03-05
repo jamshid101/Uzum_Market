@@ -2,14 +2,12 @@ package com.example.uzum_market.model;
 
 import com.example.uzum_market.enums.OrderStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Data
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderItem {
@@ -20,17 +18,21 @@ public class OrderItem {
     @Column(nullable = false)
     private Integer count;
 
+    @Column(nullable = false)
+    private Double curPrice;
+
     @ManyToOne(optional = false)
     private Price price;
-
-    @Enumerated(EnumType.STRING)
-    private OrderStatus orderStatus;
 
     @ManyToOne(optional = false)
     private Color  color;
 
     @ManyToOne
     private Orders order;
+
+
+    @Enumerated(EnumType.STRING)
+    private OrderStatus orderStatus;
 
     @ManyToOne
     private Basket basket;

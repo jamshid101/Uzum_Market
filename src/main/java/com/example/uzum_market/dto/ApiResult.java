@@ -33,7 +33,7 @@ public class ApiResult<T> {
     }
 
 
-    public static ApiResult<?> successResponse(String message) {
+    public static <E> ApiResult<E> successResponse(String message) {
         return new ApiResult<>(message);
     }
 

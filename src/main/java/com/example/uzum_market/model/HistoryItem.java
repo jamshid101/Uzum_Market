@@ -1,5 +1,6 @@
 package com.example.uzum_market.model;
 
+import com.example.uzum_market.enums.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -26,15 +27,17 @@ public class HistoryItem {
 
     private String colorName;
 
-    @NotBlank
-    private String orderStatus;
+    @ManyToOne(optional = false)
+    private Seller seller;
+
+    private OrderStatus orderStatus;
 
     @ManyToOne(optional = false)
     private Orders order;
 
-    private String SpecificationsType;
+    private String specificationsType;
 
-    private String SpecificationsName;
+    private String specificationsName;
 
     private Integer attachmentId;
     @NotNull

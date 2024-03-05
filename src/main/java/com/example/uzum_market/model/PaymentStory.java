@@ -37,7 +37,7 @@ public class PaymentStory {
     private Payment payment;
 
     @Column(nullable = false)
-    private LocalDateTime localDateTime;
+    private Long createAt;
 
 
     @Enumerated(EnumType.STRING)
